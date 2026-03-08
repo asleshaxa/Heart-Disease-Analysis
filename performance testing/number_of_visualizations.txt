@@ -1,0 +1,22 @@
+Performance Testing – Number of Visualizations
+
+The project includes multiple visualizations created in Tableau to explore relationships between lifestyle factors and heart disease.
+
+Total Visualizations Created: 10
+
+Examples include:
+- Gender vs Heart Disease
+- Age vs Heart Disease
+- Diabetic vs Stroke
+- Impact of Smoking and Alcohol on Heart Disease
+- Stroke vs Other Diseases
+- Race wise Heart Disease
+- General Health vs Heart Disease
+- Physical Activity vs Heart Disease
+- Age vs BMI vs Diabetic
+- Stroke with Diabetes and Heart Disease
+
+Dashboards Created: 3
+Story Points Created: 3
+
+These visualizations were organized into dashboards and a story to present insights in a clear analytical flow.
