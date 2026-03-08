@@ -12,176 +12,113 @@
 .story-hero p { color:var(--muted); max-width:600px; margin:0 auto; }
 
 .story-section { padding: 3rem 2.5rem; }
-.story-inner { max-width: 1200px; margin: 0 auto; }
+.story-inner { max-width: 1280px; margin: 0 auto; }
 
-/* STEP TABS */
-.step-nav {
-  display: flex; gap: .5rem; flex-wrap: wrap;
-  margin-bottom: 2rem; background: white;
-  border-radius: 12px; padding: .75rem;
-  border: 1px solid var(--border);
-  overflow-x: auto;
+/* STEP INFO CARDS */
+.step-cards {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2.5rem;
 }
-.step-btn {
-  padding: .5rem 1rem; border-radius: 8px; border: none;
-  font-family: inherit; font-size: .85rem; font-weight: 600;
-  cursor: pointer; transition: all .2s; white-space: nowrap;
-  background: var(--bg); color: var(--muted);
+.step-card {
+  background: white; border-radius: 14px; padding: 1.3rem 1.4rem;
+  border: 1px solid var(--border); border-left: 4px solid var(--blue);
+  transition: transform .2s, box-shadow .2s;
 }
-.step-btn.active { background: var(--blue); color: white; }
-.step-btn:hover:not(.active) { background: var(--blue-light); color: var(--blue); }
+.step-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(59,91,219,.1); }
+.step-card .s-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--blue); color: white;
+  font-size: .8rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .6rem;
+}
+.step-card h4 { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+.step-card p { font-size: .78rem; color: var(--muted); line-height: 1.5; }
 
-/* STORY PANEL */
-.story-panel {
-  display: none;
-  grid-template-columns: 1fr 1.4fr; gap: 2rem; align-items: start;
-}
-.story-panel.active { display: grid; }
-
-.step-info { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); }
-.step-number {
-  width: 48px; height: 48px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--blue), #5c7cfa);
-  color: white; display: flex; align-items: center;
-  justify-content: center; font-size: 1.1rem; font-weight: 700;
-  margin-bottom: 1.25rem;
-}
-.step-info h2 { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--text); margin-bottom:.75rem; }
-.step-info p { color:var(--muted); font-size:.95rem; line-height:1.8; margin-bottom:1rem; }
-.insight-box {
-  background: var(--blue-light); border-radius: 10px; padding: 1rem 1.2rem;
-  border-left: 4px solid var(--blue); margin-top: 1rem;
-}
-.insight-box .label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--blue); margin-bottom:.3rem; }
-.insight-box p { font-size:.88rem; color:var(--text); margin:0; font-weight:500; }
-
-.step-nav-btns { display:flex; gap:.75rem; margin-top:1.5rem; }
-.btn-prev, .btn-next {
-  padding:.5rem 1.2rem; border-radius:8px; border:none;
-  font-family:inherit; font-size:.85rem; font-weight:600;
-  cursor:pointer; transition:all .2s;
-}
-.btn-prev { background:var(--bg); color:var(--muted); border:1.5px solid var(--border); }
-.btn-prev:hover { border-color:var(--blue); color:var(--blue); }
-.btn-next { background:var(--blue); color:white; }
-.btn-next:hover { background:var(--blue-dark); }
-
-.step-chart { background:white; border-radius:16px; padding:1.6rem; border:1px solid var(--border); }
-.step-chart h3 { font-weight:700; font-size:.95rem; color:var(--text); margin-bottom:1.25rem; }
-
-/* FIX: Fixed height wrapper prevents chart from growing on scroll */
-.chart-canvas-wrapper {
-  position: relative;
-  height: 300px;
+/* TABLEAU EMBED */
+.tableau-container {
   width: 100%;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  overflow: hidden;
+  padding: 1.5rem;
 }
-.chart-canvas-wrapper canvas {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100% !important;
-  height: 100% !important;
+.tableau-live-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: #dcfce7; color: #166534;
+  font-size: .75rem; font-weight: 700;
+  padding: .3rem .75rem; border-radius: 20px;
+  margin-bottom: 1rem;
 }
+.tableau-live-badge .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #16a34a;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+tableau-viz { display: block; width: 100%; }
 
-/* PROGRESS BAR */
-.story-progress { margin-bottom:1.5rem; }
-.progress-label { display:flex; justify-content:space-between; font-size:.82rem; color:var(--muted); margin-bottom:.4rem; }
-.progress-track { background:var(--border); border-radius:6px; height:6px; overflow:hidden; }
-.progress-fill { height:100%; background:linear-gradient(90deg,var(--blue),#5c7cfa); border-radius:6px; transition:width .4s ease; }
-
-/* STEP THUMBNAILS */
-.step-thumbs {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:2rem;
-}
-.thumb-card {
-  background:white; border-radius:12px; padding:1.2rem;
-  border:1px solid var(--border); cursor:pointer;
-  transition:all .2s; text-align:center;
-}
-.thumb-card:hover, .thumb-card.active { border-color:var(--blue); box-shadow:0 4px 20px rgba(59,91,219,.12); }
-.thumb-card .t-num {
-  width:30px;height:30px;border-radius:50%;
-  background:var(--blue-light);color:var(--blue);
-  font-size:.82rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto .6rem;
-}
-.thumb-card.active .t-num { background:var(--blue); color:white; }
-.thumb-card h4 { font-size:.8rem; font-weight:700; color:var(--text); line-height:1.4; }
-
-@media(max-width:768px){
-  .story-panel.active{grid-template-columns:1fr;}
-  .step-thumbs{grid-template-columns:repeat(2,1fr);}
-}
+@media(max-width:768px){ .step-cards{grid-template-columns:1fr 1fr;} }
+@media(max-width:480px){ .step-cards{grid-template-columns:1fr;} }
 {% endblock %}
 
 {% block content %}
 <div class="story-hero reveal">
   <p class="section-tag">HEART DISEASE STORY</p>
   <h1>Heart Disease Story</h1>
-  <p>A guided 6-step narrative walkthrough of the most important findings — from demographics to behavioral risk factors.</p>
+  <p>A guided 6-step narrative walkthrough of the most important findings — powered live from Tableau Public.</p>
 </div>
 
 <div class="story-section">
   <div class="story-inner">
 
-    <!-- Progress -->
-    <div class="story-progress reveal">
-      <div class="progress-label">
-        <span id="progressLabel">Step 1 of 6</span>
-        <span id="progressPct">17%</span>
+    <!-- STEP SUMMARY CARDS -->
+    <div class="step-cards">
+      <div class="step-card reveal">
+        <div class="s-num">1</div>
+        <h4>Gender suffering from Heart Disease</h4>
+        <p>Female vs male breakdown of heart disease diagnoses across the patient population.</p>
       </div>
-      <div class="progress-track"><div class="progress-fill" id="progressBar" style="width:17%"></div></div>
-    </div>
-
-    <!-- Step tabs -->
-    <div class="step-nav reveal" id="stepNav">
-      {% for step in steps %}
-      <button class="step-btn {% if loop.first %}active{% endif %}"
-              onclick="goToStep({{ step.id }})" id="tabBtn{{ step.id }}">
-        {{ step.id }}. {{ step.title | truncate(30, true, '...') }}
-      </button>
-      {% endfor %}
-    </div>
-
-    <!-- Story panels -->
-    {% for step in steps %}
-    <div class="story-panel {% if loop.first %}active{% endif %} reveal" id="panel{{ step.id }}">
-      <div class="step-info">
-        <div class="step-number">{{ step.id }}</div>
-        <h2>{{ step.title }}</h2>
-        <p>{{ step.description }}</p>
-        <div class="insight-box">
-          <div class="label">💡 Key Insight</div>
-          <p>{{ step.insight }}</p>
-        </div>
-        <div class="step-nav-btns">
-          {% if not loop.first %}
-          <button class="btn-prev" onclick="goToStep({{ step.id - 1 }})">← Previous</button>
-          {% endif %}
-          {% if not loop.last %}
-          <button class="btn-next" onclick="goToStep({{ step.id + 1 }})">Next →</button>
-          {% else %}
-          <a href="/dashboard" class="btn-next" style="text-decoration:none;display:inline-flex;align-items:center;">View Full Dashboard →</a>
-          {% endif %}
-        </div>
+      <div class="step-card reveal">
+        <div class="s-num">2</div>
+        <h4>Effect of Physical Activity</h4>
+        <p>How exercise habits correlate with reduced cardiovascular risk in patients.</p>
       </div>
-      <div class="step-chart">
-        <h3>{{ step.title }}</h3>
-        <div class="chart-canvas-wrapper">
-          <canvas id="storyChart{{ step.id }}"></canvas>
-        </div>
+      <div class="step-card reveal">
+        <div class="s-num">3</div>
+        <h4>Diabetes Affecting Heart Disease</h4>
+        <p>Relationship between diabetic status and susceptibility to cardiovascular disease.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">4</div>
+        <h4>Impact of Smoking and Alcohol on Stroke</h4>
+        <p>Tobacco and alcohol contribution to stroke risk in the study population.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">5</div>
+        <h4>Diversity-wise Heart Disease Count</h4>
+        <p>Racial and ethnic distribution revealing systemic healthcare disparities.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="s-num">6</div>
+        <h4>Diabetes within Age Category</h4>
+        <p>Age-stratified view of diabetes prevalence and its intersection with heart disease.</p>
       </div>
     </div>
-    {% endfor %}
 
-    <!-- Thumbnail grid -->
-    <div class="step-thumbs" id="thumbGrid">
-      {% for step in steps %}
-      <div class="thumb-card {% if loop.first %}active{% endif %}" onclick="goToStep({{ step.id }})" id="thumb{{ step.id }}">
-        <div class="t-num">{{ step.id }}</div>
-        <h4>{{ step.title }}</h4>
+    <!-- LIVE TABLEAU STORY EMBED -->
+    <div class="tableau-container reveal">
+      <div class="tableau-live-badge">
+        <span class="dot"></span> Live Tableau Story
       </div>
-      {% endfor %}
+      <tableau-viz
+        id="tableauStory"
+        src="https://public.tableau.com/views/heart_disease_dashboards/Story3"
+        width="100%"
+        height="900"
+        toolbar="bottom">
+      </tableau-viz>
     </div>
 
   </div>
@@ -189,128 +126,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-const storyData = {{ data | tojson }};
-let currentStep = 1;
-const totalSteps = 6;
-
-function goToStep(n) {
-  // Hide all panels
-  document.querySelectorAll('.story-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.thumb-card').forEach(t => t.classList.remove('active'));
-
-  // Show target
-  document.getElementById('panel' + n).classList.add('active');
-  document.getElementById('tabBtn' + n).classList.add('active');
-  document.getElementById('thumb' + n).classList.add('active');
-
-  // Progress
-  const pct = Math.round((n / totalSteps) * 100);
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = 'Step ' + n + ' of ' + totalSteps;
-  document.getElementById('progressPct').textContent = pct + '%';
-
-  currentStep = n;
-  window.scrollTo({ top: 200, behavior: 'smooth' });
-}
-
-// Chart.js defaults
-Chart.defaults.font.family = 'DM Sans';
-Chart.defaults.color = '#6b7280';
-
-// Step 1: Gender bar
-new Chart(document.getElementById('storyChart1'), {
-  type: 'bar',
-  data: {
-    labels: storyData.gender.labels,
-    datasets: [
-      { label: 'No Disease', data: storyData.gender.no_disease, backgroundColor: '#3B5BDB', borderRadius: 6 },
-      { label: 'Heart Disease', data: storyData.gender.with_disease, backgroundColor: '#f97316', borderRadius: 6 }
-    ]
-  },
-  options: { responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { position: 'top' } },
-    scales: { x: { grid: { display: false } }, y: { grid: { color: '#f1f5f9' } } }
-  }
-});
-
-// Step 2: Physical Activity doughnut
-new Chart(document.getElementById('storyChart2'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Active-Healthy','Active-Disease','Inactive-Healthy','Inactive-Disease'],
-    datasets: [{ data: [3100,280,1200,620],
-      backgroundColor: ['#3B5BDB','#f97316','#5c7cfa','#e63946'],
-      borderWidth: 2, borderColor: '#fff' }]
-  },
-  options: { responsive: true, maintainAspectRatio: false, cutout: '55%',
-    plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10 } } }
-  }
-});
-
-// Step 3: Diabetic/Stroke grouped bar
-new Chart(document.getElementById('storyChart3'), {
-  type: 'bar',
-  data: {
-    labels: storyData.diabetic_stroke.categories,
-    datasets: [
-      { label: 'No Disease', data: storyData.diabetic_stroke.no_disease, backgroundColor: '#3B5BDB', borderRadius: 5 },
-      { label: 'Heart Disease', data: storyData.diabetic_stroke.with_disease, backgroundColor: '#e63946', borderRadius: 5 }
-    ]
-  },
-  options: { responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { position: 'top' } },
-    scales: { x: { grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 30 } }, y: { grid: { color: '#f1f5f9' } } }
-  }
-});
-
-// Step 4: Smoking horizontal bar
-new Chart(document.getElementById('storyChart4'), {
-  type: 'bar',
-  data: {
-    labels: storyData.smoking_alcohol.labels,
-    datasets: [{ label: 'Count', data: storyData.smoking_alcohol.values,
-      backgroundColor: ['#10b981','#f97316','#3B5BDB','#e63946'], borderRadius: 5 }]
-  },
-  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: { x: { grid: { color: '#f1f5f9' } }, y: { grid: { display: false } } }
-  }
-});
-
-// Step 5: Race pie
-new Chart(document.getElementById('storyChart5'), {
-  type: 'pie',
-  data: {
-    labels: storyData.race.labels,
-    datasets: [{ data: storyData.race.values,
-      backgroundColor: storyData.race.colors, borderWidth: 2, borderColor: '#fff' }]
-  },
-  options: { responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { position: 'right', labels: { font: { size: 11 } } },
-      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` } }
-    }
-  }
-});
-
-// Step 6: Age/Diabetes stacked bar
-new Chart(document.getElementById('storyChart6'), {
-  type: 'bar',
-  data: {
-    labels: storyData.age_diabetes.age_groups,
-    datasets: [
-      { label: 'Diabetic', data: storyData.age_diabetes.diabetic, backgroundColor: '#3B5BDB', borderRadius: 4, stack: 'age' },
-      { label: 'Non-Diabetic', data: storyData.age_diabetes.non_diabetic, backgroundColor: '#e2e8f0', borderRadius: 4, stack: 'age' }
-    ]
-  },
-  options: { responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { position: 'top' } },
-    scales: {
-      x: { grid: { display: false }, stacked: true },
-      y: { grid: { color: '#f1f5f9' }, stacked: true }
-    }
-  }
-});
-</script>
+<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 {% endblock %}
