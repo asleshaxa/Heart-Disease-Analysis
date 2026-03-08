@@ -1,0 +1,11 @@
+Performance Testing – Amount of Data to DB
+
+The dataset used for the Heart Disease Analysis project contains health and lifestyle related attributes such as BMI, Smoking, Alcohol Drinking, Physical Activity, Stroke, Diabetes, Age Category and others.
+
+After performing SQL queries and cleaning operations, the processed dataset was imported into Tableau for visualization.
+
+Approximate Dataset Details:
+- Total rows: ~4500 records
+- Columns: Health indicators such as BMI, Smoking, Stroke, Diabetes, Heart Disease, etc.
+
+Since the dataset size is moderate, the data loads quickly into Tableau and dashboards render without noticeable delay. The optimized dataset ensures smooth visualization performance.
