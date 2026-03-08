@@ -1,0 +1,12 @@
+Performance Testing – Number of Calculation Fields
+
+Most visualizations in this project were created using existing dataset attributes without requiring complex calculated fields.
+
+Primary calculations used:
+- COUNT(Heart Disease)
+- COUNT(Stroke)
+- AVG(BMI)
+
+Total calculated fields used: 3
+
+These basic aggregations were sufficient to analyze the relationship between health indicators and heart disease.

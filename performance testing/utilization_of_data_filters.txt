@@ -1,0 +1,11 @@
+Performance Testing – Utilization of Data Filters
+
+Data filters were applied in several visualizations to analyze specific subsets of the dataset.
+
+Examples of filters used:
+- Heart Disease = Yes
+- Stroke = Yes
+- Diabetic status filter
+- Age category filters
+
+These filters allow users to focus on particular health conditions and demographic groups. By reducing the amount of data processed at once, filters improve dashboard responsiveness and help generate more targeted insights from the dataset.
