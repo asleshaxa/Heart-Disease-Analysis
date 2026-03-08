@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Heart Disease Analysis{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --blue: #3B5BDB;
+      --blue-dark: #2b4abf;
+      --blue-light: #e8edff;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --bg: #f7f9ff;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --accent: #f97316;
+      --red: #e63946;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--white);
+      box-shadow: 0 1px 16px rgba(0,0,0,.08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 64px;
+    }
+    .nav-brand {
+      font-size: 1.15rem; font-weight: 700; color: var(--blue);
+      display: flex; align-items: center; gap: .5rem;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--text); }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: .9rem; font-weight: 500; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a.active { color: var(--blue); font-weight: 700; }
+    .btn-primary {
+      background: var(--blue); color: #fff !important;
+      border: none; padding: .5rem 1.4rem;
+      border-radius: 6px; font-size: .9rem; font-weight: 600 !important;
+      cursor: pointer; text-decoration: none;
+      transition: background .2s, transform .15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--blue-dark) !important; transform: translateY(-1px); }
+
+    /* PAGE WRAPPER */
+    .page-content { padding-top: 64px; min-height: 100vh; }
+
+    /* SECTION */
+    .section { padding: 5rem 2.5rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: .6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); max-width: 600px; font-size: 1rem; }
+
+    /* CARD */
+    .card {
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(59,91,219,.1); }
+
+    /* FOOTER */
+    footer {
+      background: var(--text); color: rgba(255,255,255,.6);
+      text-align: center; padding: 2rem;
+      font-size: .85rem;
+    }
+    footer a { color: #7c9df4; text-decoration: none; }
+    footer strong { color: white; }
+
+    /* REVEAL ANIMATION */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: .75rem; }
+      .nav-links a { font-size: .8rem; }
+      .section { padding: 3rem 1rem; }
+    }
+
+    {% block extra_css %}{% endblock %}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">☰ <span>Welcome</span></a>
+  <div class="nav-links">
+    <a href="/" class="{% if request.endpoint == 'home' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if request.endpoint == 'about' %}active{% endif %}">About</a>
+    <a href="/dashboard" class="{% if request.endpoint == 'dashboard' %}active{% endif %}">Dashboard</a>
+    <a href="/story" class="{% if request.endpoint == 'story' %}active{% endif %}">Story</a>
+    <a href="/contact" class="{% if request.endpoint == 'contact' %}active{% endif %}">Contact</a>
+    <a href="/dashboard" class="btn-primary">Get Started</a>
+  </div>
+</nav>
+
+<div class="page-content">
+  {% block content %}{% endblock %}
+</div>
+
+<footer>
+  <p>© 2024 <strong>Heart Disease Analysis</strong> &nbsp;·&nbsp; Built with Flask &amp; Chart.js &nbsp;·&nbsp;
+    <a href="https://github.com/asleshaxa/Heart-Disease-Analysis" target="_blank">GitHub Repository</a>
+  </p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

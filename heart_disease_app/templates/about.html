@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}About – Heart Disease Analysis{% endblock %}
+
+{% block extra_css %}
+.about-hero {
+  background: linear-gradient(135deg, #eef2ff, #f7f9ff);
+  padding: 5rem 2.5rem 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.about-hero-inner { max-width: 1200px; margin: 0 auto; }
+.about-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); margin-bottom:1rem; }
+.about-hero p { color:var(--muted); max-width:640px; font-size:1.05rem; line-height:1.8; }
+
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-top:2.5rem; }
+.info-block { background:white; border-radius:16px; padding:2rem; border:1px solid var(--border); }
+.info-block h3 { font-weight:700; font-size:1.1rem; color:var(--text); margin-bottom:1rem; padding-bottom:.75rem; border-bottom:2px solid var(--blue-light); }
+.info-block p { color:var(--muted); font-size:.95rem; line-height:1.8; margin-bottom:1rem; }
+.info-block p:last-child { margin-bottom:0; }
+
+.risk-factors { display:flex; flex-direction:column; gap:.75rem; margin-top:.5rem; }
+.risk-item {
+  display:flex; align-items:center; gap:1rem;
+  background:var(--bg); border-radius:10px; padding:1rem 1.2rem;
+  border-left:4px solid var(--blue); transition:transform .2s;
+}
+.risk-item:hover { transform:translateX(6px); }
+.risk-item .ri { font-size:1.4rem; flex-shrink:0; }
+.risk-item h4 { font-weight:700; font-size:.9rem; color:var(--text); margin-bottom:.15rem; }
+.risk-item p { font-size:.82rem; color:var(--muted); margin:0; }
+
+.stats-highlight {
+  background:linear-gradient(135deg,var(--blue),#5c7cfa);
+  border-radius:16px; padding:2rem; color:white; margin-top:1.5rem;
+}
+.stats-highlight h3 { font-weight:700; margin-bottom:1rem; }
+.sh-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.sh-item { background:rgba(255,255,255,.15); border-radius:10px; padding:1rem; text-align:center; }
+.sh-item .n { font-size:1.8rem; font-weight:700; }
+.sh-item .l { font-size:.75rem; opacity:.85; margin-top:.2rem; }
+
+.methodology { background:white; }
+.method-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.25rem; margin-top:2rem; }
+.method-card { background:var(--bg); border-radius:12px; padding:1.4rem; border:1px solid var(--border); text-align:center; }
+.method-card .icon { font-size:2rem; margin-bottom:.75rem; }
+.method-card h4 { font-weight:700; font-size:.9rem; color:var(--text); margin-bottom:.4rem; }
+.method-card p { font-size:.82rem; color:var(--muted); }
+
+@media(max-width:768px){ .about-grid{grid-template-columns:1fr;} .sh-grid{grid-template-columns:1fr;} }
+{% endblock %}
+
+{% block content %}
+<div class="about-hero">
+  <div class="about-hero-inner reveal">
+    <p class="section-tag">About This Project</p>
+    <h1>Understanding Heart Disease Through Data</h1>
+    <p>Heart disease is a group of diseases related to cardiovascular diseases, manifested by a violation of the normal functioning of the heart — covering the epicardium, pericardium, myocardium, endocardium, valvular apparatus of the heart, and heart vessels.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="info-block reveal">
+          <h3>📌 Project Overview</h3>
+          <p>This platform demonstrates how to use data analytics and interactive visualization to surface actionable insights about cardiovascular health. Using a dataset of over 4,000 patients, we explore multiple risk factors and their correlations with heart disease diagnosis.</p>
+          <p>According to the <strong>National Heart, Lung and Blood Institute</strong> in Framingham (USA), the most important factors in the development of cardiovascular disease in humans are obesity, sedentary lifestyle, and smoking.</p>
+          <p>This analysis validates and expands on those findings using real patient data visualized through Chart.js and presented via a Flask web application.</p>
+        </div>
+
+        <div class="stats-highlight reveal">
+          <h3>📊 Dataset at a Glance</h3>
+          <div class="sh-grid">
+            <div class="sh-item"><div class="n">4,200+</div><div class="l">Total Patients</div></div>
+            <div class="sh-item"><div class="n">6</div><div class="l">Key Risk Factors</div></div>
+            <div class="sh-item"><div class="n">503</div><div class="l">Heart Disease Cases</div></div>
+            <div class="sh-item"><div class="n">5</div><div class="l">Racial Groups</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="info-block reveal">
+          <h3>⚠️ Key Risk Factors Analyzed</h3>
+          <div class="risk-factors">
+            <div class="risk-item">
+              <span class="ri">🚬</span>
+              <div><h4>Smoking</h4><p>Tobacco use significantly increases cardiovascular risk across all demographics.</p></div>
+            </div>
+            <div class="risk-item">
+              <span class="ri">🍺</span>
+              <div><h4>Alcohol Consumption</h4><p>Heavy drinking compounds cardiovascular risk, especially when combined with smoking.</p></div>
+            </div>
+            <div class="risk-item">
+              <span class="ri">🩸</span>
+              <div><h4>Diabetes</h4><p>Diabetic patients show disproportionately higher rates of heart disease in this dataset.</p></div>
+            </div>
+            <div class="risk-item">
+              <span class="ri">🛋️</span>
+              <div><h4>Sedentary Lifestyle</h4><p>Inactive individuals are 2.2× more likely to be diagnosed with heart disease.</p></div>
+            </div>
+            <div class="risk-item">
+              <span class="ri">🧬</span>
+              <div><h4>Age & Demographics</h4><p>Risk peaks in the 65–74 age group and varies significantly across racial groups.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section methodology" style="background:white;">
+  <div class="section-inner">
+    <p class="section-tag reveal">Methodology</p>
+    <h2 class="section-title reveal">How This Analysis Was Built</h2>
+    <p class="section-sub reveal">A structured pipeline from raw data to interactive web visualizations.</p>
+    <div class="method-cards">
+      <div class="method-card reveal">
+        <div class="icon">📥</div>
+        <h4>Data Collection</h4>
+        <p>Patient data sourced from the Behavioral Risk Factor Surveillance System (BRFSS) dataset.</p>
+      </div>
+      <div class="method-card reveal">
+        <div class="icon">🧹</div>
+        <h4>Data Cleaning</h4>
+        <p>Removed duplicates, handled null values, and normalized categorical fields for consistency.</p>
+      </div>
+      <div class="method-card reveal">
+        <div class="icon">📊</div>
+        <h4>Visualization</h4>
+        <p>Charts built with Chart.js — bar, pie, doughnut, and grouped bar charts for multi-variable analysis.</p>
+      </div>
+      <div class="method-card reveal">
+        <div class="icon">🌐</div>
+        <h4>Web Application</h4>
+        <p>Flask framework powers the backend; Jinja2 templates render dynamic pages with real data.</p>
+      </div>
+      <div class="method-card reveal">
+        <div class="icon">📖</div>
+        <h4>Story Telling</h4>
+        <p>Guided 6-step narrative walks users through the most important findings in logical sequence.</p>
+      </div>
+      <div class="method-card reveal">
+        <div class="icon">🔗</div>
+        <h4>Open Source</h4>
+        <p>Full source code available on <a href="https://github.com/asleshaxa/Heart-Disease-Analysis" target="_blank" style="color:var(--blue);">GitHub</a> for transparency and reproducibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

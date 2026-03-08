@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% block title %}Home – Heart Disease Analysis{% endblock %}
+
+{% block extra_css %}
+#home-hero {
+  min-height: calc(100vh - 64px);
+  display: flex; align-items: center;
+  background: linear-gradient(135deg, #eef2ff 0%, #f0f4ff 50%, #fef3ec 100%);
+  position: relative; overflow: hidden;
+  padding: 4rem 2.5rem;
+}
+#home-hero::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(59,91,219,.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+}
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1.15; color: var(--text); margin-bottom: 1.25rem;
+}
+.hero-text h1 em { color: var(--blue); font-style: normal; }
+.hero-text p { font-size: 1.05rem; color: var(--muted); max-width: 480px; margin-bottom: 2rem; }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-outline {
+  background: transparent; color: var(--blue);
+  border: 2px solid var(--blue); padding: .5rem 1.4rem;
+  border-radius: 6px; font-size: .9rem; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  transition: all .2s; display: inline-block;
+}
+.btn-outline:hover { background: var(--blue); color: white; }
+
+.hero-visual {
+  display: flex; justify-content: center;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+
+.hero-card {
+  background: white; border-radius: 24px; padding: 2rem;
+  box-shadow: 0 20px 60px rgba(59,91,219,.18);
+  width: 100%; max-width: 400px;
+  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+}
+.heart-pulse {
+  width: 110px; height: 110px; border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 12px 40px rgba(238,90,36,.35);
+  animation: pulse 2s ease-in-out infinite;
+  font-size: 3rem;
+}
+@keyframes pulse {
+  0%,100%{box-shadow:0 12px 40px rgba(238,90,36,.35); transform:scale(1);}
+  50%{box-shadow:0 16px 55px rgba(238,90,36,.55); transform:scale(1.05);}
+}
+.hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; width: 100%; }
+.h-stat { background: var(--bg); border-radius: 10px; padding: .9rem .5rem; text-align: center; }
+.h-stat .num { font-size: 1.4rem; font-weight: 700; color: var(--blue); }
+.h-stat .lbl { font-size: .7rem; color: var(--muted); margin-top: .15rem; }
+
+/* FEATURES */
+.features-section { background: white; }
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.feature-card {
+  background: var(--bg); border-radius: 14px; padding: 1.8rem;
+  border: 1px solid var(--border); transition: transform .2s, box-shadow .2s;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 35px rgba(59,91,219,.1); }
+.feature-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--blue-light); display: flex; align-items: center;
+  justify-content: center; font-size: 1.4rem; margin-bottom: 1rem;
+}
+.feature-card h3 { font-weight: 700; color: var(--text); margin-bottom: .4rem; font-size: 1rem; }
+.feature-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+/* CTA */
+.cta-section {
+  background: linear-gradient(135deg, var(--blue), #5c7cfa);
+  text-align: center; padding: 5rem 2rem; color: white;
+}
+.cta-section h2 { font-family:'Playfair Display',serif; font-size: 2.2rem; margin-bottom: 1rem; }
+.cta-section p { opacity: .85; max-width: 500px; margin: 0 auto 2rem; }
+.btn-white {
+  background: white; color: var(--blue);
+  padding: .75rem 2rem; border-radius: 8px;
+  font-weight: 700; text-decoration: none; font-size: 1rem;
+  transition: transform .2s, box-shadow .2s; display: inline-block;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,.2); }
+
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-visual{display:none;}
+}
+{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<section id="home-hero">
+  <div class="hero-inner">
+    <div class="hero-text reveal">
+      <p class="section-tag">Heart Health Analytics Platform</p>
+      <h1>Heart Disease <em>Analysis</em> Dashboard</h1>
+      <p>Exploring cardiovascular risk factors through interactive data visualizations — empowering healthcare professionals, policymakers, and individuals with data-driven insights.</p>
+      <div class="hero-btns">
+        <a href="/dashboard" class="btn-primary">Explore Dashboard →</a>
+        <a href="/story" class="btn-outline">View Story</a>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-card">
+        <div class="heart-pulse">❤️</div>
+        <div class="hero-stats">
+          <div class="h-stat"><div class="num">4.2K</div><div class="lbl">Patients</div></div>
+          <div class="h-stat"><div class="num">6</div><div class="lbl">Metrics</div></div>
+          <div class="h-stat"><div class="num">6</div><div class="lbl">Story Steps</div></div>
+        </div>
+        <div style="width:100%; background:var(--bg); border-radius:10px; padding:1rem;">
+          <canvas id="miniChart" height="80"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-section">
+  <div class="section-inner">
+    <p class="section-tag reveal">What We Analyze</p>
+    <h2 class="section-title reveal">Key Research Areas</h2>
+    <p class="section-sub reveal">A comprehensive view of cardiovascular risk factors drawn from a large patient dataset.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">👥</div>
+        <h3>Gender vs Heart Disease</h3>
+        <p>Analysis of 4,017 female and 1,846 male patients reveals distinct cardiovascular risk patterns across gender groups.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🩺</div>
+        <h3>Diabetic & Stroke Correlation</h3>
+        <p>Examining how diabetes and stroke status intersect with heart disease incidence across the patient population.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🌎</div>
+        <h3>Race-wise Distribution</h3>
+        <p>Racial disparities in heart disease — 70.47% White, 24.16% Black — highlighting systemic healthcare differences.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🚬</div>
+        <h3>Smoking & Alcohol Impact</h3>
+        <p>Behavioral risk factors — tobacco and alcohol — and their measurable influence on heart disease prevalence.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🏃</div>
+        <h3>Physical Activity</h3>
+        <p>Exercise habit correlation with cardiovascular risk. Inactive individuals are 2.2× more likely to have heart disease.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📅</div>
+        <h3>Age & Diabetes</h3>
+        <p>Age-stratified diabetes prevalence peaking in the 65–74 demographic, correlating with highest cardiovascular risk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal">
+  <h2>Ready to Explore the Data?</h2>
+  <p>Dive into interactive charts and a guided story walkthrough of heart disease risk factors.</p>
+  <a href="/dashboard" class="btn-white">Open Dashboard</a>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const ctx = document.getElementById('miniChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Female', 'Male'],
+    datasets: [
+      { label: 'No Disease', data: [2377, 1640], backgroundColor: '#3B5BDB', borderRadius: 4 },
+      { label: 'Disease', data: [277, 226], backgroundColor: '#f97316', borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      y: { display: false }
+    }
+  }
+});
+</script>
+{% endblock %}
