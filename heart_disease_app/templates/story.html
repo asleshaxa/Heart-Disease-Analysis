@@ -68,7 +68,19 @@
 
 .step-chart { background:white; border-radius:16px; padding:1.6rem; border:1px solid var(--border); }
 .step-chart h3 { font-weight:700; font-size:.95rem; color:var(--text); margin-bottom:1.25rem; }
-.chart-canvas-wrapper { position: relative; height: 300px; width: 100%; }
+
+/* FIX: Fixed height wrapper prevents chart from growing on scroll */
+.chart-canvas-wrapper {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+.chart-canvas-wrapper canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
 
 /* PROGRESS BAR */
 .story-progress { margin-bottom:1.5rem; }
@@ -155,7 +167,9 @@
       </div>
       <div class="step-chart">
         <h3>{{ step.title }}</h3>
-        <canvas id="storyChart{{ step.id }}" height="280"></canvas>
+        <div class="chart-canvas-wrapper">
+          <canvas id="storyChart{{ step.id }}"></canvas>
+        </div>
       </div>
     </div>
     {% endfor %}
