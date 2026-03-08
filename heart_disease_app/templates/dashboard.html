@@ -27,33 +27,8 @@
 .kpi-card .kpi-lbl { font-size:.82rem; color:var(--muted); margin-top:.25rem; }
 .kpi-card .kpi-delta { font-size:.78rem; color:#10b981; font-weight:600; margin-top:.35rem; }
 
-/* VIEW SWITCHER */
-.view-switcher {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 1rem;
-  background: white; border-radius: 14px; padding: 1rem 1.4rem;
-  border: 1px solid var(--border); margin-bottom: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,.04);
-}
-.switcher-label { font-size: .82rem; font-weight: 700; color: var(--text); }
-.switcher-tabs { display: flex; gap: .4rem; flex-wrap: wrap; }
-.switcher-btn {
-  padding: .45rem 1.1rem; border-radius: 8px; border: 1.5px solid var(--border);
-  font-family: inherit; font-size: .82rem; font-weight: 600;
-  cursor: pointer; transition: all .2s; background: var(--bg); color: var(--muted);
-  display: flex; align-items: center; gap: .4rem;
-}
-.switcher-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-.switcher-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
-
-/* SIZE CONTROLS */
-.size-controls { display: flex; gap: .4rem; }
-.size-btn {
-  padding: .4rem .8rem; border-radius: 8px; border: 1.5px solid var(--border);
-  font-family: inherit; font-size: .78rem; font-weight: 600;
-  cursor: pointer; transition: all .2s; background: var(--bg); color: var(--muted);
-}
-.size-btn:hover, .size-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
+/* MAIN LAYOUT */
+.dash-layout { display: grid; grid-template-columns: 1fr 290px; gap: 1.5rem; align-items: start; }
 
 /* TOOLBAR ROW */
 .toolbar-row {
@@ -80,33 +55,28 @@
   display: flex; align-items: center; gap: .35rem;
 }
 .action-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-.action-btn.danger:hover { border-color: #e63946; color: #e63946; background: #fff5f5; }
 
 /* TABLEAU CONTAINER */
 .tableau-container {
-  width: 100%;
-  background: white;
-  border-radius: 16px;
-  border: 1px solid var(--border);
+  width: 100%; background: white;
+  border-radius: 16px; border: 1px solid var(--border);
   box-shadow: 0 4px 24px rgba(0,0,0,.08);
-  overflow: hidden;
-  padding: 1.5rem;
+  overflow: hidden; padding: 1.5rem;
   transition: all .3s ease;
 }
 .tableau-container.fullscreen-mode {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 9999; border-radius: 0; padding: 1rem;
-  overflow-y: auto;
+  z-index: 9999; border-radius: 0; padding: 1rem; overflow-y: auto;
 }
+tableau-viz { display: block; width: 100%; }
 
-tableau-viz { display: block; width: 100%; transition: height .3s ease; }
-
-/* LOADING OVERLAY */
+/* LOADING */
+.viz-wrapper { position: relative; }
 .loading-overlay {
   display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255,255,255,.85); border-radius: 12px;
+  background: rgba(255,255,255,.88); border-radius: 12px;
   align-items: center; justify-content: center; flex-direction: column; gap: 1rem;
-  z-index: 10;
+  z-index: 10; min-height: 200px;
 }
 .loading-overlay.visible { display: flex; }
 .spinner {
@@ -117,49 +87,74 @@ tableau-viz { display: block; width: 100%; transition: height .3s ease; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-overlay p { font-size: .9rem; color: var(--muted); font-weight: 600; }
 
-.viz-wrapper { position: relative; }
-
-/* VIEW SHEETS PANEL */
-.sheets-panel {
-  display: none; background: white; border-radius: 14px;
-  border: 1px solid var(--border); padding: 1.25rem;
-  margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,.06);
-}
-.sheets-panel.open { display: block; }
-.sheets-panel h4 { font-size: .85rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
-.sheets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: .6rem; }
-.sheet-btn {
-  padding: .6rem 1rem; border-radius: 8px; border: 1.5px solid var(--border);
-  font-family: inherit; font-size: .82rem; font-weight: 600; text-align: left;
-  cursor: pointer; transition: all .2s; background: var(--bg); color: var(--text);
-  display: flex; align-items: center; gap: .5rem;
-}
-.sheet-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-.sheet-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
-.sheet-icon { font-size: 1rem; }
-
-/* INFO SIDEBAR */
-.dash-layout { display: grid; grid-template-columns: 1fr 280px; gap: 1.5rem; align-items: start; }
+/* RIGHT SIDEBAR */
 .info-sidebar { display: flex; flex-direction: column; gap: 1rem; }
-.info-card {
+
+.sidebar-card {
   background: white; border-radius: 14px; padding: 1.2rem;
   border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,.04);
 }
-.info-card h4 { font-size: .85rem; font-weight: 700; color: var(--text); margin-bottom: .75rem;
-  padding-bottom: .5rem; border-bottom: 1px solid var(--border); }
-.insight-item { display: flex; gap: .6rem; align-items: flex-start; margin-bottom: .6rem; font-size: .82rem; color: var(--muted); line-height: 1.5; }
+.sidebar-card h4 {
+  font-size: .85rem; font-weight: 700; color: var(--text);
+  margin-bottom: .85rem; padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: .4rem;
+}
+
+/* SHEET NAVIGATION BUTTONS */
+.sheet-nav { display: flex; flex-direction: column; gap: .4rem; }
+.sheet-btn {
+  padding: .6rem .9rem; border-radius: 9px; border: 1.5px solid var(--border);
+  font-family: inherit; font-size: .82rem; font-weight: 600; text-align: left;
+  cursor: pointer; transition: all .2s; background: var(--bg); color: var(--text);
+  display: flex; align-items: center; gap: .55rem; width: 100%;
+}
+.sheet-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.sheet-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
+.sheet-btn .sb-icon { font-size: 1rem; flex-shrink: 0; }
+.sheet-btn .sb-label { flex: 1; }
+.sheet-btn .sb-tag {
+  font-size: .65rem; padding: .15rem .45rem; border-radius: 4px;
+  background: rgba(255,255,255,.25); font-weight: 700;
+}
+.sheet-btn.active .sb-tag { background: rgba(255,255,255,.3); color: white; }
+
+/* SIZE CONTROLS */
+.size-controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .4rem; }
+.size-btn {
+  padding: .45rem; border-radius: 8px; border: 1.5px solid var(--border);
+  font-family: inherit; font-size: .78rem; font-weight: 700;
+  cursor: pointer; transition: all .2s; background: var(--bg); color: var(--muted);
+  text-align: center;
+}
+.size-btn:hover, .size-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
+
+/* INSIGHT ITEMS */
+.insight-item {
+  display: flex; gap: .6rem; align-items: flex-start;
+  margin-bottom: .55rem; font-size: .82rem; color: var(--muted); line-height: 1.5;
+}
 .insight-item:last-child { margin-bottom: 0; }
 .insight-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: .35rem; }
 
+/* TIP CARD */
 .tip-card {
   background: linear-gradient(135deg, var(--blue), #5c7cfa);
   border-radius: 14px; padding: 1.2rem; color: white;
 }
-.tip-card h4 { font-size: .85rem; font-weight: 700; margin-bottom: .5rem; opacity: .8; }
-.tip-card p { font-size: .8rem; opacity: .9; line-height: 1.6; }
+.tip-card h4 { font-size: .85rem; font-weight: 700; margin-bottom: .5rem; opacity: .85; }
+.tip-card p { font-size: .8rem; opacity: .9; line-height: 1.6; margin: 0; }
 
-@media(max-width:1100px){ .dash-layout{grid-template-columns:1fr;} .info-sidebar{display:grid;grid-template-columns:1fr 1fr;} }
-@media(max-width:900px){ .kpi-row{grid-template-columns:repeat(2,1fr);} .info-sidebar{grid-template-columns:1fr;} }
+/* CURRENT VIEW LABEL */
+.view-footer {
+  margin-top: .75rem; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+}
+.view-footer p { font-size: .8rem; color: var(--muted); }
+.view-footer strong { color: var(--text); }
+
+@media(max-width:1100px){ .dash-layout{grid-template-columns:1fr;} }
+@media(max-width:900px){ .kpi-row{grid-template-columns:repeat(2,1fr);} }
 @media(max-width:480px){ .kpi-row{grid-template-columns:1fr;} }
 {% endblock %}
 
@@ -167,7 +162,7 @@ tableau-viz { display: block; width: 100%; transition: height .3s ease; }
 <div class="dash-hero reveal">
   <p class="section-tag">DASHBOARD</p>
   <h1>Heart Disease Analytics Dashboard</h1>
-  <p>Live Tableau dashboard with interactive controls — switch views, resize, explore sheets, and more.</p>
+  <p>Live Tableau dashboard — use the controls on the right to switch views, resize, and explore all charts.</p>
 </div>
 
 <div class="dashboard-section">
@@ -175,59 +170,32 @@ tableau-viz { display: block; width: 100%; transition: height .3s ease; }
 
     <!-- KPI ROW -->
     <div class="kpi-row">
-      <div class="kpi-card reveal" onclick="switchSheet('Dashboard1')" title="Click to view dashboard">
+      <div class="kpi-card reveal" onclick="switchSheet('Dashboard 1','Main Dashboard')">
         <div class="kpi-val">4,017</div>
         <div class="kpi-lbl">Female Patients</div>
         <div class="kpi-delta">↑ 69% of dataset</div>
       </div>
-      <div class="kpi-card reveal" style="border-top-color:#f97316" onclick="switchSheet('Dashboard1')" title="Click to view dashboard">
+      <div class="kpi-card reveal" style="border-top-color:#f97316" onclick="switchSheet('Dashboard 1','Main Dashboard')">
         <div class="kpi-val" style="color:#f97316">1,846</div>
         <div class="kpi-lbl">Male Patients</div>
         <div class="kpi-delta" style="color:#f97316">↑ 31% of dataset</div>
       </div>
-      <div class="kpi-card reveal" style="border-top-color:#e63946" onclick="switchSheet('Dashboard1')" title="Click to view dashboard">
+      <div class="kpi-card reveal" style="border-top-color:#e63946" onclick="switchSheet('Dashboard 1','Main Dashboard')">
         <div class="kpi-val" style="color:#e63946">503</div>
         <div class="kpi-lbl">Heart Disease Cases</div>
         <div class="kpi-delta" style="color:#e63946">⚠ 8.6% prevalence</div>
       </div>
-      <div class="kpi-card reveal" style="border-top-color:#10b981" onclick="switchSheet('Dashboard1')" title="Click to view dashboard">
+      <div class="kpi-card reveal" style="border-top-color:#10b981" onclick="switchSheet('Dashboard 1','Main Dashboard')">
         <div class="kpi-val" style="color:#10b981">5,863</div>
         <div class="kpi-lbl">No Heart Disease</div>
         <div class="kpi-delta" style="color:#10b981">✓ 91.4% healthy</div>
       </div>
     </div>
 
-    <!-- VIEW SWITCHER -->
-    <div class="view-switcher reveal">
-      <span class="switcher-label">📊 Switch View:</span>
-      <div class="switcher-tabs">
-        <button class="switcher-btn active" onclick="switchSheet('Dashboard1', this)" id="btn-Dashboard1">
-          📊 Main Dashboard
-        </button>
-        <button class="switcher-btn" onclick="switchSheet('Story3', this)" id="btn-Story3">
-          📖 Full Story
-        </button>
-        <button class="switcher-btn" onclick="switchSheet('GendervsHeartDisease', this)" id="btn-gender">
-          👥 Gender
-        </button>
-        <button class="switcher-btn" onclick="switchSheet('RacewiseHeartDisease', this)" id="btn-race">
-          🌎 Race
-        </button>
-        <button class="switcher-btn" onclick="switchSheet('SmokingAlcohol', this)" id="btn-smoking">
-          🚬 Smoking
-        </button>
-        <button class="switcher-btn" onclick="switchSheet('DiabeticvsStroke', this)" id="btn-diabetic">
-          🩺 Diabetic
-        </button>
-      </div>
-      <div class="size-controls">
-        <button class="size-btn" onclick="setHeight(600, this)" title="Compact view">S</button>
-        <button class="size-btn active" onclick="setHeight(900, this)" title="Normal view">M</button>
-        <button class="size-btn" onclick="setHeight(1100, this)" title="Large view">L</button>
-      </div>
-    </div>
-
+    <!-- MAIN LAYOUT: Viz + Sidebar -->
     <div class="dash-layout">
+
+      <!-- LEFT: Tableau Viz -->
       <div>
         <!-- TOOLBAR -->
         <div class="toolbar-row reveal">
@@ -238,20 +206,19 @@ tableau-viz { display: block; width: 100%; transition: height .3s ease; }
             <button class="action-btn" onclick="reloadViz()">🔄 Refresh</button>
             <button class="action-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
             <button class="action-btn" onclick="openInTableau()">↗ Open in Tableau</button>
-            <button class="action-btn" onclick="copyEmbedLink()">🔗 Copy Link</button>
+            <button class="action-btn" onclick="copyLink()">🔗 Copy Link</button>
           </div>
         </div>
 
-        <!-- TABLEAU EMBED -->
         <div class="tableau-container reveal" id="tableauContainer">
           <div class="viz-wrapper">
-            <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-overlay visible" id="loadingOverlay">
               <div class="spinner"></div>
               <p>Loading dashboard...</p>
             </div>
             <tableau-viz
               id="tableauDashboard"
-              src="https://public.tableau.com/views/heart_disease_dashboards/Dashboard1"
+              src="https://public.tableau.com/views/heart_disease_dashboards/Dashboard 1"
               width="100%"
               height="900"
               hide-tabs
@@ -260,53 +227,103 @@ tableau-viz { display: block; width: 100%; transition: height .3s ease; }
           </div>
         </div>
 
-        <!-- CURRENT VIEW LABEL -->
-        <div style="margin-top:.75rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem;">
-          <p style="font-size:.8rem; color:var(--muted);">
-            📌 Currently viewing: <strong id="currentViewLabel">Main Dashboard</strong>
-          </p>
-          <p style="font-size:.78rem; color:var(--muted);">
-            💡 Click any chart inside to interact with it
-          </p>
+        <div class="view-footer">
+          <p>📌 Viewing: <strong id="currentViewLabel">Main Dashboard</strong></p>
+          <p style="font-size:.78rem; color:var(--muted);">💡 Click inside the chart to filter & drill down</p>
         </div>
       </div>
 
-      <!-- INFO SIDEBAR -->
+      <!-- RIGHT SIDEBAR -->
       <div class="info-sidebar reveal">
-        <div class="info-card">
+
+        <!-- NAVIGATE SHEETS -->
+        <div class="sidebar-card">
+          <h4>📂 Navigate Views</h4>
+          <div class="sheet-nav">
+            <button class="sheet-btn active" id="sb-Dashboard 1" onclick="switchSheet('Dashboard 1','Main Dashboard')">
+              <span class="sb-icon">📊</span><span class="sb-label">Main Dashboard</span><span class="sb-tag">DB</span>
+            </button>
+            <button class="sheet-btn" id="sb-Dashboard 2" onclick="switchSheet('Dashboard 2','Dashboard 2')">
+              <span class="sb-icon">📊</span><span class="sb-label">Dashboard 2</span><span class="sb-tag">DB</span>
+            </button>
+            <button class="sheet-btn" id="sb-Dashboard 3" onclick="switchSheet('Dashboard 3','Dashboard 3')">
+              <span class="sb-icon">📊</span><span class="sb-label">Dashboard 3</span><span class="sb-tag">DB</span>
+            </button>
+            <button class="sheet-btn" id="sb-Story 1" onclick="switchSheet('Story 1','Story 1')">
+              <span class="sb-icon">📖</span><span class="sb-label">Story 1</span><span class="sb-tag">ST</span>
+            </button>
+            <button class="sheet-btn" id="sb-Story 2" onclick="switchSheet('Story 2','Story 2')">
+              <span class="sb-icon">📖</span><span class="sb-label">Story 2</span><span class="sb-tag">ST</span>
+            </button>
+            <button class="sheet-btn" id="sb-Story 3" onclick="switchSheet('Story 3','Story 3')">
+              <span class="sb-icon">📖</span><span class="sb-label">Story 3</span><span class="sb-tag">ST</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- INDIVIDUAL WORKSHEETS -->
+        <div class="sidebar-card">
+          <h4>📋 Individual Charts</h4>
+          <div class="sheet-nav">
+            <button class="sheet-btn" id="sb-Gender vs Heart Disease" onclick="switchSheet('Gender vs Heart Disease','Gender vs Heart Disease')">
+              <span class="sb-icon">👥</span><span class="sb-label">Gender vs Heart Disease</span>
+            </button>
+            <button class="sheet-btn" id="sb-Race wise Heart Disease" onclick="switchSheet('Race wise Heart Disease','Race wise Heart Disease')">
+              <span class="sb-icon">🌎</span><span class="sb-label">Race wise Heart Disease</span>
+            </button>
+            <button class="sheet-btn" id="sb-Impact of Smoking and Alcohol on Heart Disease" onclick="switchSheet('Impact of Smoking and Alcohol on Heart Disease','Smoking & Alcohol')">
+              <span class="sb-icon">🚬</span><span class="sb-label">Smoking & Alcohol</span>
+            </button>
+            <button class="sheet-btn" id="sb-Diabetic Vs Stroke" onclick="switchSheet('Diabetic Vs Stroke','Diabetic Vs Stroke')">
+              <span class="sb-icon">🩺</span><span class="sb-label">Diabetic Vs Stroke</span>
+            </button>
+            <button class="sheet-btn" id="sb-Physical Activity vs Heart Disease" onclick="switchSheet('Physical Activity vs Heart Disease','Physical Activity')">
+              <span class="sb-icon">🏃</span><span class="sb-label">Physical Activity</span>
+            </button>
+            <button class="sheet-btn" id="sb-Age Vs Heart Disease" onclick="switchSheet('Age Vs Heart Disease','Age Vs Heart Disease')">
+              <span class="sb-icon">📅</span><span class="sb-label">Age Vs Heart Disease</span>
+            </button>
+            <button class="sheet-btn" id="sb-General Health vs Heart Disease" onclick="switchSheet('General Health vs Heart Disease','General Health')">
+              <span class="sb-icon">💊</span><span class="sb-label">General Health</span>
+            </button>
+            <button class="sheet-btn" id="sb-Stroke vs Other Disease" onclick="switchSheet('Stroke vs Other Disease','Stroke vs Other Disease')">
+              <span class="sb-icon">🧠</span><span class="sb-label">Stroke vs Other Disease</span>
+            </button>
+            <button class="sheet-btn" id="sb-Age vs BMI vs Diabetic" onclick="switchSheet('Age vs BMI vs Diabetic','Age vs BMI vs Diabetic')">
+              <span class="sb-icon">⚖️</span><span class="sb-label">Age vs BMI vs Diabetic</span>
+            </button>
+            <button class="sheet-btn" id="sb-People Got Stroke Suffering from Diabetes and Heart Disease" onclick="switchSheet('People Got Stroke Suffering from Diabetes and Heart Disease','Stroke & Diabetes')">
+              <span class="sb-icon">❤️</span><span class="sb-label">Stroke & Diabetes</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- DISPLAY SIZE -->
+        <div class="sidebar-card">
+          <h4>📐 Display Size</h4>
+          <div class="size-controls">
+            <button class="size-btn" onclick="setHeight(600, this)">Small</button>
+            <button class="size-btn active" onclick="setHeight(900, this)">Medium</button>
+            <button class="size-btn" onclick="setHeight(1100, this)">Large</button>
+          </div>
+        </div>
+
+        <!-- KEY INSIGHTS -->
+        <div class="sidebar-card">
           <h4>📌 Key Findings</h4>
           <div class="insight-item"><div class="insight-dot"></div>Females show higher heart disease count (277) vs males (226)</div>
           <div class="insight-item"><div class="insight-dot"></div>White patients represent 70.47% of all cases</div>
-          <div class="insight-item"><div class="insight-dot" style="background:#e63946"></div>Smokers + drinkers have highest disease rate (2,450)</div>
+          <div class="insight-item"><div class="insight-dot" style="background:#e63946"></div>Smokers + drinkers have the highest disease rate</div>
           <div class="insight-item"><div class="insight-dot" style="background:#10b981"></div>Active patients show 2.2× lower disease risk</div>
           <div class="insight-item"><div class="insight-dot" style="background:#f97316"></div>Diabetes strongly correlates with heart disease</div>
         </div>
 
-        <div class="info-card">
-          <h4>🔍 Quick Navigate</h4>
-          <div style="display:flex; flex-direction:column; gap:.4rem;">
-            <button class="sheet-btn" onclick="switchSheet('Dashboard1', null, 'Main Dashboard')"><span class="sheet-icon">📊</span> Main Dashboard</button>
-            <button class="sheet-btn" onclick="switchSheet('Story3', null, 'Full Story')"><span class="sheet-icon">📖</span> Full Story</button>
-            <button class="sheet-btn" onclick="switchSheet('GendervsHeartDisease', null, 'Gender Chart')"><span class="sheet-icon">👥</span> Gender Chart</button>
-            <button class="sheet-btn" onclick="switchSheet('RacewiseHeartDisease', null, 'Race Distribution')"><span class="sheet-icon">🌎</span> Race Distribution</button>
-            <button class="sheet-btn" onclick="switchSheet('SmokingAlcohol', null, 'Smoking & Alcohol')"><span class="sheet-icon">🚬</span> Smoking & Alcohol</button>
-            <button class="sheet-btn" onclick="switchSheet('DiabeticvsStroke', null, 'Diabetic vs Stroke')"><span class="sheet-icon">🩺</span> Diabetic vs Stroke</button>
-          </div>
-        </div>
-
+        <!-- TIP -->
         <div class="tip-card">
           <h4>💡 Pro Tip</h4>
-          <p>Click on any bar, slice or data point inside the Tableau chart to filter and drill down into that specific segment!</p>
+          <p>Click on any bar, slice, or data point inside Tableau to filter and drill down into that specific segment!</p>
         </div>
 
-        <div class="info-card">
-          <h4>📐 Display Size</h4>
-          <div style="display:flex; gap:.5rem;">
-            <button class="size-btn" style="flex:1;" onclick="setHeight(600, this)">Small</button>
-            <button class="size-btn active" style="flex:1;" onclick="setHeight(900, this)">Medium</button>
-            <button class="size-btn" style="flex:1;" onclick="setHeight(1100, this)">Large</button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -318,42 +335,32 @@ tableau-viz { display: block; width: 100%; transition: height .3s ease; }
 <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 <script>
 const BASE_URL = "https://public.tableau.com/views/heart_disease_dashboards/";
-let currentSheet = "Dashboard1";
+let currentSheet = "Dashboard 1";
 let isFullscreen = false;
 
-// Switch to a different Tableau sheet/view
-function switchSheet(sheetName, btnEl, label) {
+function switchSheet(sheetName, label) {
   showLoading();
   currentSheet = sheetName;
 
   const viz = document.getElementById('tableauDashboard');
-  viz.src = BASE_URL + sheetName;
+  viz.src = BASE_URL + encodeURIComponent(sheetName);
 
-  // Update label
-  const lbl = label || (btnEl ? btnEl.textContent.trim() : sheetName);
-  document.getElementById('currentViewLabel').textContent = lbl;
+  document.getElementById('currentViewLabel').textContent = label || sheetName;
 
-  // Update top switcher buttons
-  document.querySelectorAll('.switcher-btn').forEach(b => b.classList.remove('active'));
-  const topBtn = document.getElementById('btn-' + sheetName);
-  if (topBtn) topBtn.classList.add('active');
-  if (btnEl) btnEl.classList.add('active');
-
-  // Update sidebar sheet buttons
+  // Update active sidebar buttons
   document.querySelectorAll('.sheet-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('sb-' + sheetName);
+  if (activeBtn) activeBtn.classList.add('active');
 
-  setTimeout(hideLoading, 2500);
+  setTimeout(hideLoading, 3000);
 }
 
-// Set viz height
 function setHeight(h, btn) {
-  const viz = document.getElementById('tableauDashboard');
-  viz.setAttribute('height', h);
+  document.getElementById('tableauDashboard').setAttribute('height', h);
   document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 }
 
-// Reload / refresh
 function reloadViz() {
   showLoading();
   const viz = document.getElementById('tableauDashboard');
@@ -362,29 +369,22 @@ function reloadViz() {
   setTimeout(() => { viz.src = src; hideLoading(); }, 800);
 }
 
-// Fullscreen toggle
 function toggleFullscreen() {
   const container = document.getElementById('tableauContainer');
   isFullscreen = !isFullscreen;
   container.classList.toggle('fullscreen-mode', isFullscreen);
   document.body.style.overflow = isFullscreen ? 'hidden' : '';
-  // ESC to exit
-  if (isFullscreen) {
-    document.addEventListener('keydown', escHandler);
-  } else {
-    document.removeEventListener('keydown', escHandler);
-  }
+  if (isFullscreen) document.addEventListener('keydown', escHandler);
+  else document.removeEventListener('keydown', escHandler);
 }
 function escHandler(e) { if (e.key === 'Escape') toggleFullscreen(); }
 
-// Open in Tableau Public
 function openInTableau() {
-  window.open('https://public.tableau.com/views/heart_disease_dashboards/' + currentSheet, '_blank');
+  window.open('https://public.tableau.com/views/heart_disease_dashboards/' + encodeURIComponent(currentSheet), '_blank');
 }
 
-// Copy embed link
-function copyEmbedLink() {
-  const url = BASE_URL + currentSheet;
+function copyLink() {
+  const url = BASE_URL + encodeURIComponent(currentSheet);
   navigator.clipboard.writeText(url).then(() => {
     const btn = event.target;
     const orig = btn.textContent;
@@ -393,14 +393,10 @@ function copyEmbedLink() {
   });
 }
 
-// Loading helpers
 function showLoading() { document.getElementById('loadingOverlay').classList.add('visible'); }
 function hideLoading() { document.getElementById('loadingOverlay').classList.remove('visible'); }
 
-// Show loading on initial page load
-window.addEventListener('DOMContentLoaded', () => {
-  showLoading();
-  setTimeout(hideLoading, 3000);
-});
+// Hide loading after initial load
+window.addEventListener('DOMContentLoaded', () => setTimeout(hideLoading, 3500));
 </script>
 {% endblock %}
