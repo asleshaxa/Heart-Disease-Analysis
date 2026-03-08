@@ -46,7 +46,6 @@
   background: #16a34a; animation: blink 1.5s ease-in-out infinite;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
 .action-btns { display: flex; gap: .5rem; flex-wrap: wrap; }
 .action-btn {
   padding: .4rem .9rem; border-radius: 8px; border: 1.5px solid var(--border);
@@ -62,7 +61,6 @@
   border-radius: 16px; border: 1px solid var(--border);
   box-shadow: 0 4px 24px rgba(0,0,0,.08);
   overflow: hidden; padding: 1.5rem;
-  transition: all .3s ease;
 }
 .tableau-container.fullscreen-mode {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -89,7 +87,6 @@ tableau-viz { display: block; width: 100%; }
 
 /* RIGHT SIDEBAR */
 .info-sidebar { display: flex; flex-direction: column; gap: 1rem; }
-
 .sidebar-card {
   background: white; border-radius: 14px; padding: 1.2rem;
   border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,.04);
@@ -98,10 +95,7 @@ tableau-viz { display: block; width: 100%; }
   font-size: .85rem; font-weight: 700; color: var(--text);
   margin-bottom: .85rem; padding-bottom: .5rem;
   border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: .4rem;
 }
-
-/* SHEET NAVIGATION BUTTONS */
 .sheet-nav { display: flex; flex-direction: column; gap: .4rem; }
 .sheet-btn {
   padding: .6rem .9rem; border-radius: 9px; border: 1.5px solid var(--border);
@@ -114,30 +108,25 @@ tableau-viz { display: block; width: 100%; }
 .sheet-btn .sb-icon { font-size: 1rem; flex-shrink: 0; }
 .sheet-btn .sb-label { flex: 1; }
 .sheet-btn .sb-tag {
-  font-size: .65rem; padding: .15rem .45rem; border-radius: 4px;
-  background: rgba(255,255,255,.25); font-weight: 700;
+  font-size: .65rem; padding: .15rem .4rem; border-radius: 4px;
+  background: #e8edff; color: var(--blue); font-weight: 700;
 }
-.sheet-btn.active .sb-tag { background: rgba(255,255,255,.3); color: white; }
+.sheet-btn.active .sb-tag { background: rgba(255,255,255,.25); color: white; }
 
-/* SIZE CONTROLS */
 .size-controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .4rem; }
 .size-btn {
   padding: .45rem; border-radius: 8px; border: 1.5px solid var(--border);
   font-family: inherit; font-size: .78rem; font-weight: 700;
-  cursor: pointer; transition: all .2s; background: var(--bg); color: var(--muted);
-  text-align: center;
+  cursor: pointer; transition: all .2s; background: var(--bg); color: var(--muted); text-align: center;
 }
 .size-btn:hover, .size-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
 
-/* INSIGHT ITEMS */
 .insight-item {
   display: flex; gap: .6rem; align-items: flex-start;
   margin-bottom: .55rem; font-size: .82rem; color: var(--muted); line-height: 1.5;
 }
 .insight-item:last-child { margin-bottom: 0; }
 .insight-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: .35rem; }
-
-/* TIP CARD */
 .tip-card {
   background: linear-gradient(135deg, var(--blue), #5c7cfa);
   border-radius: 14px; padding: 1.2rem; color: white;
@@ -145,13 +134,8 @@ tableau-viz { display: block; width: 100%; }
 .tip-card h4 { font-size: .85rem; font-weight: 700; margin-bottom: .5rem; opacity: .85; }
 .tip-card p { font-size: .8rem; opacity: .9; line-height: 1.6; margin: 0; }
 
-/* CURRENT VIEW LABEL */
-.view-footer {
-  margin-top: .75rem; display: flex; align-items: center;
-  justify-content: space-between; flex-wrap: wrap; gap: .5rem;
-}
+.view-footer { margin-top: .75rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
 .view-footer p { font-size: .8rem; color: var(--muted); }
-.view-footer strong { color: var(--text); }
 
 @media(max-width:1100px){ .dash-layout{grid-template-columns:1fr;} }
 @media(max-width:900px){ .kpi-row{grid-template-columns:repeat(2,1fr);} }
@@ -162,7 +146,7 @@ tableau-viz { display: block; width: 100%; }
 <div class="dash-hero reveal">
   <p class="section-tag">DASHBOARD</p>
   <h1>Heart Disease Analytics Dashboard</h1>
-  <p>Live Tableau dashboard — use the controls on the right to switch views, resize, and explore all charts.</p>
+  <p>Live Tableau dashboard — use the sidebar controls to switch between all dashboards, stories and individual charts.</p>
 </div>
 
 <div class="dashboard-section">
@@ -170,34 +154,31 @@ tableau-viz { display: block; width: 100%; }
 
     <!-- KPI ROW -->
     <div class="kpi-row">
-      <div class="kpi-card reveal" onclick="switchSheet('Dashboard 1','Main Dashboard')">
+      <div class="kpi-card reveal" onclick="switchSheet('Dashboard1','Main Dashboard')">
         <div class="kpi-val">4,017</div>
         <div class="kpi-lbl">Female Patients</div>
         <div class="kpi-delta">↑ 69% of dataset</div>
       </div>
-      <div class="kpi-card reveal" style="border-top-color:#f97316" onclick="switchSheet('Dashboard 1','Main Dashboard')">
+      <div class="kpi-card reveal" style="border-top-color:#f97316" onclick="switchSheet('Dashboard1','Main Dashboard')">
         <div class="kpi-val" style="color:#f97316">1,846</div>
         <div class="kpi-lbl">Male Patients</div>
         <div class="kpi-delta" style="color:#f97316">↑ 31% of dataset</div>
       </div>
-      <div class="kpi-card reveal" style="border-top-color:#e63946" onclick="switchSheet('Dashboard 1','Main Dashboard')">
+      <div class="kpi-card reveal" style="border-top-color:#e63946" onclick="switchSheet('Dashboard1','Main Dashboard')">
         <div class="kpi-val" style="color:#e63946">503</div>
         <div class="kpi-lbl">Heart Disease Cases</div>
         <div class="kpi-delta" style="color:#e63946">⚠ 8.6% prevalence</div>
       </div>
-      <div class="kpi-card reveal" style="border-top-color:#10b981" onclick="switchSheet('Dashboard 1','Main Dashboard')">
+      <div class="kpi-card reveal" style="border-top-color:#10b981" onclick="switchSheet('Dashboard1','Main Dashboard')">
         <div class="kpi-val" style="color:#10b981">5,863</div>
         <div class="kpi-lbl">No Heart Disease</div>
         <div class="kpi-delta" style="color:#10b981">✓ 91.4% healthy</div>
       </div>
     </div>
 
-    <!-- MAIN LAYOUT: Viz + Sidebar -->
     <div class="dash-layout">
-
       <!-- LEFT: Tableau Viz -->
       <div>
-        <!-- TOOLBAR -->
         <div class="toolbar-row reveal">
           <div class="tableau-live-badge">
             <span class="dot"></span> Live from Tableau Public
@@ -218,7 +199,7 @@ tableau-viz { display: block; width: 100%; }
             </div>
             <tableau-viz
               id="tableauDashboard"
-              src="https://public.tableau.com/views/heart_disease_dashboards/Dashboard 1"
+              src="https://public.tableau.com/views/heart_disease_dashboards/Dashboard1"
               width="100%"
               height="900"
               hide-tabs
@@ -229,33 +210,33 @@ tableau-viz { display: block; width: 100%; }
 
         <div class="view-footer">
           <p>📌 Viewing: <strong id="currentViewLabel">Main Dashboard</strong></p>
-          <p style="font-size:.78rem; color:var(--muted);">💡 Click inside the chart to filter & drill down</p>
+          <p>💡 Click inside the chart to filter & drill down</p>
         </div>
       </div>
 
       <!-- RIGHT SIDEBAR -->
       <div class="info-sidebar reveal">
 
-        <!-- NAVIGATE SHEETS -->
+        <!-- DASHBOARDS & STORIES -->
         <div class="sidebar-card">
-          <h4>📂 Navigate Views</h4>
+          <h4>📂 Dashboards & Stories</h4>
           <div class="sheet-nav">
-            <button class="sheet-btn active" id="sb-Dashboard 1" onclick="switchSheet('Dashboard 1','Main Dashboard')">
-              <span class="sb-icon">📊</span><span class="sb-label">Main Dashboard</span><span class="sb-tag">DB</span>
+            <button class="sheet-btn active" id="sb-Dashboard1" onclick="switchSheet('Dashboard1','Dashboard 1')">
+              <span class="sb-icon">📊</span><span class="sb-label">Dashboard 1</span><span class="sb-tag">DB</span>
             </button>
-            <button class="sheet-btn" id="sb-Dashboard 2" onclick="switchSheet('Dashboard 2','Dashboard 2')">
+            <button class="sheet-btn" id="sb-Dashboard2" onclick="switchSheet('Dashboard2','Dashboard 2')">
               <span class="sb-icon">📊</span><span class="sb-label">Dashboard 2</span><span class="sb-tag">DB</span>
             </button>
-            <button class="sheet-btn" id="sb-Dashboard 3" onclick="switchSheet('Dashboard 3','Dashboard 3')">
+            <button class="sheet-btn" id="sb-Dashboard3" onclick="switchSheet('Dashboard3','Dashboard 3')">
               <span class="sb-icon">📊</span><span class="sb-label">Dashboard 3</span><span class="sb-tag">DB</span>
             </button>
-            <button class="sheet-btn" id="sb-Story 1" onclick="switchSheet('Story 1','Story 1')">
+            <button class="sheet-btn" id="sb-Story1" onclick="switchSheet('Story1','Story 1')">
               <span class="sb-icon">📖</span><span class="sb-label">Story 1</span><span class="sb-tag">ST</span>
             </button>
-            <button class="sheet-btn" id="sb-Story 2" onclick="switchSheet('Story 2','Story 2')">
+            <button class="sheet-btn" id="sb-Story2" onclick="switchSheet('Story2','Story 2')">
               <span class="sb-icon">📖</span><span class="sb-label">Story 2</span><span class="sb-tag">ST</span>
             </button>
-            <button class="sheet-btn" id="sb-Story 3" onclick="switchSheet('Story 3','Story 3')">
+            <button class="sheet-btn" id="sb-Story3" onclick="switchSheet('Story3','Story 3')">
               <span class="sb-icon">📖</span><span class="sb-label">Story 3</span><span class="sb-tag">ST</span>
             </button>
           </div>
@@ -265,34 +246,34 @@ tableau-viz { display: block; width: 100%; }
         <div class="sidebar-card">
           <h4>📋 Individual Charts</h4>
           <div class="sheet-nav">
-            <button class="sheet-btn" id="sb-Gender vs Heart Disease" onclick="switchSheet('Gender vs Heart Disease','Gender vs Heart Disease')">
+            <button class="sheet-btn" id="sb-GendervsHeartDisease" onclick="switchSheet('GendervsHeartDisease','Gender vs Heart Disease')">
               <span class="sb-icon">👥</span><span class="sb-label">Gender vs Heart Disease</span>
             </button>
-            <button class="sheet-btn" id="sb-Race wise Heart Disease" onclick="switchSheet('Race wise Heart Disease','Race wise Heart Disease')">
+            <button class="sheet-btn" id="sb-RacewiseHeartDisease" onclick="switchSheet('RacewiseHeartDisease','Race wise Heart Disease')">
               <span class="sb-icon">🌎</span><span class="sb-label">Race wise Heart Disease</span>
             </button>
-            <button class="sheet-btn" id="sb-Impact of Smoking and Alcohol on Heart Disease" onclick="switchSheet('Impact of Smoking and Alcohol on Heart Disease','Smoking & Alcohol')">
+            <button class="sheet-btn" id="sb-ImpactofSmokingandAlcoholonHeartDisease" onclick="switchSheet('ImpactofSmokingandAlcoholonHeartDisease','Smoking & Alcohol')">
               <span class="sb-icon">🚬</span><span class="sb-label">Smoking & Alcohol</span>
             </button>
-            <button class="sheet-btn" id="sb-Diabetic Vs Stroke" onclick="switchSheet('Diabetic Vs Stroke','Diabetic Vs Stroke')">
+            <button class="sheet-btn" id="sb-DiabeticVsStroke" onclick="switchSheet('DiabeticVsStroke','Diabetic Vs Stroke')">
               <span class="sb-icon">🩺</span><span class="sb-label">Diabetic Vs Stroke</span>
             </button>
-            <button class="sheet-btn" id="sb-Physical Activity vs Heart Disease" onclick="switchSheet('Physical Activity vs Heart Disease','Physical Activity')">
+            <button class="sheet-btn" id="sb-PhysicalActivityvsHeartDisease" onclick="switchSheet('PhysicalActivityvsHeartDisease','Physical Activity')">
               <span class="sb-icon">🏃</span><span class="sb-label">Physical Activity</span>
             </button>
-            <button class="sheet-btn" id="sb-Age Vs Heart Disease" onclick="switchSheet('Age Vs Heart Disease','Age Vs Heart Disease')">
+            <button class="sheet-btn" id="sb-AgeVsHeartDisease" onclick="switchSheet('AgeVsHeartDisease','Age Vs Heart Disease')">
               <span class="sb-icon">📅</span><span class="sb-label">Age Vs Heart Disease</span>
             </button>
-            <button class="sheet-btn" id="sb-General Health vs Heart Disease" onclick="switchSheet('General Health vs Heart Disease','General Health')">
+            <button class="sheet-btn" id="sb-GeneralHealthvsHeartDisease" onclick="switchSheet('GeneralHealthvsHeartDisease','General Health')">
               <span class="sb-icon">💊</span><span class="sb-label">General Health</span>
             </button>
-            <button class="sheet-btn" id="sb-Stroke vs Other Disease" onclick="switchSheet('Stroke vs Other Disease','Stroke vs Other Disease')">
+            <button class="sheet-btn" id="sb-StrokevsOtherDisease" onclick="switchSheet('StrokevsOtherDisease','Stroke vs Other Disease')">
               <span class="sb-icon">🧠</span><span class="sb-label">Stroke vs Other Disease</span>
             </button>
-            <button class="sheet-btn" id="sb-Age vs BMI vs Diabetic" onclick="switchSheet('Age vs BMI vs Diabetic','Age vs BMI vs Diabetic')">
+            <button class="sheet-btn" id="sb-AgevsBMIvsDiabetic" onclick="switchSheet('AgevsBMIvsDiabetic','Age vs BMI vs Diabetic')">
               <span class="sb-icon">⚖️</span><span class="sb-label">Age vs BMI vs Diabetic</span>
             </button>
-            <button class="sheet-btn" id="sb-People Got Stroke Suffering from Diabetes and Heart Disease" onclick="switchSheet('People Got Stroke Suffering from Diabetes and Heart Disease','Stroke & Diabetes')">
+            <button class="sheet-btn" id="sb-PeopleGotStroke" onclick="switchSheet('PeopleGotStrokeSufferingfromDiabetesandHeartDisease','Stroke & Diabetes')">
               <span class="sb-icon">❤️</span><span class="sb-label">Stroke & Diabetes</span>
             </button>
           </div>
@@ -335,24 +316,18 @@ tableau-viz { display: block; width: 100%; }
 <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 <script>
 const BASE_URL = "https://public.tableau.com/views/heart_disease_dashboards/";
-let currentSheet = "Dashboard 1";
+let currentSheet = "Dashboard1";
 let isFullscreen = false;
 
 function switchSheet(sheetName, label) {
   showLoading();
   currentSheet = sheetName;
-
-  const viz = document.getElementById('tableauDashboard');
-  viz.src = BASE_URL + encodeURIComponent(sheetName);
-
+  document.getElementById('tableauDashboard').src = BASE_URL + sheetName;
   document.getElementById('currentViewLabel').textContent = label || sheetName;
-
-  // Update active sidebar buttons
   document.querySelectorAll('.sheet-btn').forEach(b => b.classList.remove('active'));
   const activeBtn = document.getElementById('sb-' + sheetName);
   if (activeBtn) activeBtn.classList.add('active');
-
-  setTimeout(hideLoading, 3000);
+  setTimeout(hideLoading, 3500);
 }
 
 function setHeight(h, btn) {
@@ -380,12 +355,11 @@ function toggleFullscreen() {
 function escHandler(e) { if (e.key === 'Escape') toggleFullscreen(); }
 
 function openInTableau() {
-  window.open('https://public.tableau.com/views/heart_disease_dashboards/' + encodeURIComponent(currentSheet), '_blank');
+  window.open(BASE_URL + currentSheet, '_blank');
 }
 
 function copyLink() {
-  const url = BASE_URL + encodeURIComponent(currentSheet);
-  navigator.clipboard.writeText(url).then(() => {
+  navigator.clipboard.writeText(BASE_URL + currentSheet).then(() => {
     const btn = event.target;
     const orig = btn.textContent;
     btn.textContent = '✅ Copied!';
@@ -395,8 +369,6 @@ function copyLink() {
 
 function showLoading() { document.getElementById('loadingOverlay').classList.add('visible'); }
 function hideLoading() { document.getElementById('loadingOverlay').classList.remove('visible'); }
-
-// Hide loading after initial load
-window.addEventListener('DOMContentLoaded', () => setTimeout(hideLoading, 3500));
+window.addEventListener('DOMContentLoaded', () => setTimeout(hideLoading, 4000));
 </script>
 {% endblock %}
