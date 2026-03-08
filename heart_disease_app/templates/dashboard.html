@@ -25,52 +25,32 @@
 .kpi-card .kpi-lbl { font-size:.82rem; color:var(--muted); margin-top:.25rem; }
 .kpi-card .kpi-delta { font-size:.78rem; color:#10b981; font-weight:600; margin-top:.35rem; }
 
-/* CHART GRID */
-.chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem; }
-.chart-grid.three { grid-template-columns:1fr 1fr 1fr; }
-.chart-grid.full { grid-template-columns:1fr; }
+/* TABLEAU EMBED */
+.tableau-container {
+  width: 100%;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  overflow: hidden;
+  padding: 1.5rem;
+}
+.tableau-live-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: #dcfce7; color: #166534;
+  font-size: .75rem; font-weight: 700;
+  padding: .3rem .75rem; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.tableau-live-badge .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #16a34a;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+tableau-viz { display: block; width: 100%; }
 
-.chart-card {
-  background:white; border-radius:16px; padding:1.6rem;
-  border:1px solid var(--border);
-  box-shadow:0 2px 12px rgba(0,0,0,.05);
-  transition: box-shadow .2s;
-}
-.chart-card:hover { box-shadow: 0 8px 30px rgba(59,91,219,.1); }
-.chart-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.25rem; }
-.chart-header h3 { font-size:1rem; font-weight:700; color:var(--text); }
-.chart-header p { font-size:.8rem; color:var(--muted); margin-top:.25rem; max-width:340px; }
-.chart-badge {
-  background:var(--blue-light); color:var(--blue);
-  font-size:.72rem; font-weight:700; padding:.25rem .6rem; border-radius:20px;
-  white-space:nowrap; flex-shrink:0;
-}
-.chart-body { position:relative; }
-
-/* LEGEND */
-.custom-legend { display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem; }
-.legend-item { display:flex; align-items:center; gap:.4rem; font-size:.8rem; color:var(--muted); }
-.legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-
-/* FILTER BAR */
-.filter-bar {
-  background:white; border-radius:12px; padding:1rem 1.4rem;
-  border:1px solid var(--border); margin-bottom:1.5rem;
-  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
-}
-.filter-bar label { font-size:.82rem; font-weight:600; color:var(--text); }
-.filter-bar select {
-  padding:.4rem .8rem; border:1.5px solid var(--border);
-  border-radius:6px; font-size:.85rem; color:var(--text);
-  font-family:inherit; outline:none; cursor:pointer;
-  transition:border-color .2s;
-}
-.filter-bar select:focus { border-color:var(--blue); }
-
-@media(max-width:900px){
-  .chart-grid,.chart-grid.three{grid-template-columns:1fr;}
-  .kpi-row{grid-template-columns:repeat(2,1fr);}
-}
+@media(max-width:900px){ .kpi-row{grid-template-columns:repeat(2,1fr);} }
 @media(max-width:480px){ .kpi-row{grid-template-columns:1fr;} }
 {% endblock %}
 
@@ -78,7 +58,7 @@
 <div class="dash-hero reveal">
   <p class="section-tag">DASHBOARD</p>
   <h1>Heart Disease Analytics Dashboard</h1>
-  <p>Interactive charts covering gender, race, diabetes, smoking, alcohol, and physical activity as key cardiovascular risk factors.</p>
+  <p>Live Tableau dashboard — any updates you publish to Tableau Public are automatically reflected here in real time.</p>
 </div>
 
 <div class="dashboard-section">
@@ -108,123 +88,19 @@
       </div>
     </div>
 
-    <!-- ROW 1: Gender + Diabetic/Stroke -->
-    <div class="chart-grid reveal">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>Gender vs Heart Disease</h3>
-            <p>Count of heart disease diagnosis by sex across the patient population.</p>
-          </div>
-          <span class="chart-badge">Bar Chart</span>
-        </div>
-        <div class="chart-body"><canvas id="genderChart" height="220"></canvas></div>
-        <div class="custom-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#3B5BDB"></div> No Disease</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div> Heart Disease</div>
-        </div>
+    <!-- LIVE TABLEAU DASHBOARD EMBED -->
+    <div class="tableau-container reveal">
+      <div class="tableau-live-badge">
+        <span class="dot"></span> Live Tableau Dashboard
       </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>Diabetic vs Stroke</h3>
-            <p>Cross-analysis of diabetic status and stroke occurrence against heart disease.</p>
-          </div>
-          <span class="chart-badge">Grouped Bar</span>
-        </div>
-        <div class="chart-body"><canvas id="diabeticChart" height="220"></canvas></div>
-        <div class="custom-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#3B5BDB"></div> No Disease</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#e63946"></div> Heart Disease</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROW 2: Race + Smoking -->
-    <div class="chart-grid reveal">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>Race wise Heart Disease</h3>
-            <p>Distribution of heart disease prevalence across racial demographics.</p>
-          </div>
-          <span class="chart-badge">Pie Chart</span>
-        </div>
-        <div class="chart-body"><canvas id="raceChart" height="240"></canvas></div>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>Impact of Smoking and Alcohol on Heart Disease</h3>
-            <p>Effect of smoking and alcohol use on heart disease count across segments.</p>
-          </div>
-          <span class="chart-badge">Bar Chart</span>
-        </div>
-        <div class="chart-body"><canvas id="smokingChart" height="240"></canvas></div>
-      </div>
-    </div>
-
-    <!-- ROW 3: Physical Activity + Age/Diabetes -->
-    <div class="chart-grid reveal">
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>Effect of Physical Activity on Heart Disease</h3>
-            <p>Active vs inactive patients and their heart disease diagnosis rates.</p>
-          </div>
-          <span class="chart-badge">Doughnut</span>
-        </div>
-        <div class="chart-body" style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;">
-          <canvas id="activityChart" height="200" style="max-width:200px;"></canvas>
-          <div style="flex:1;min-width:160px;">
-            <div style="margin-bottom:.75rem;">
-              <div style="font-size:.82rem;color:var(--muted);margin-bottom:.3rem;">Active — No Disease</div>
-              <div style="background:#eef2ff;border-radius:6px;height:10px;overflow:hidden;">
-                <div style="width:83%;height:100%;background:#3B5BDB;border-radius:6px;"></div>
-              </div>
-              <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem;">3,100 patients</div>
-            </div>
-            <div style="margin-bottom:.75rem;">
-              <div style="font-size:.82rem;color:var(--muted);margin-bottom:.3rem;">Active — Disease</div>
-              <div style="background:#eef2ff;border-radius:6px;height:10px;overflow:hidden;">
-                <div style="width:17%;height:100%;background:#f97316;border-radius:6px;"></div>
-              </div>
-              <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem;">280 patients</div>
-            </div>
-            <div style="margin-bottom:.75rem;">
-              <div style="font-size:.82rem;color:var(--muted);margin-bottom:.3rem;">Inactive — No Disease</div>
-              <div style="background:#eef2ff;border-radius:6px;height:10px;overflow:hidden;">
-                <div style="width:66%;height:100%;background:#5c7cfa;border-radius:6px;"></div>
-              </div>
-              <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem;">1,200 patients</div>
-            </div>
-            <div>
-              <div style="font-size:.82rem;color:var(--muted);margin-bottom:.3rem;">Inactive — Disease</div>
-              <div style="background:#eef2ff;border-radius:6px;height:10px;overflow:hidden;">
-                <div style="width:34%;height:100%;background:#e63946;border-radius:6px;"></div>
-              </div>
-              <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem;">620 patients</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-header">
-          <div>
-            <h3>People Suffering from Diabetes within Age Category</h3>
-            <p>Age-stratified view of diabetes prevalence across the study population.</p>
-          </div>
-          <span class="chart-badge">Stacked Bar</span>
-        </div>
-        <div class="chart-body"><canvas id="ageChart" height="220"></canvas></div>
-        <div class="custom-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:#3B5BDB"></div> Diabetic</div>
-          <div class="legend-item"><div class="legend-dot" style="background:#e2e8f0"></div> Non-Diabetic</div>
-        </div>
-      </div>
+      <tableau-viz
+        id="tableauDashboard"
+        src="https://public.tableau.com/views/heart_disease_dashboards/Dashboard1"
+        width="100%"
+        height="900"
+        hide-tabs
+        toolbar="bottom">
+      </tableau-viz>
     </div>
 
   </div>
@@ -232,132 +108,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-const data = {{ data | tojson }};
-
-// Chart defaults
-Chart.defaults.font.family = 'DM Sans';
-Chart.defaults.color = '#6b7280';
-
-// 1. Gender Chart
-new Chart(document.getElementById('genderChart'), {
-  type: 'bar',
-  data: {
-    labels: data.gender.labels,
-    datasets: [
-      { label: 'No Disease', data: data.gender.no_disease, backgroundColor: '#3B5BDB', borderRadius: 6 },
-      { label: 'Heart Disease', data: data.gender.with_disease, backgroundColor: '#f97316', borderRadius: 6 }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { grid: { display: false } },
-      y: { grid: { color: '#f1f5f9' }, beginAtZero: true }
-    }
-  }
-});
-
-// 2. Diabetic/Stroke Chart
-new Chart(document.getElementById('diabeticChart'), {
-  type: 'bar',
-  data: {
-    labels: data.diabetic_stroke.categories,
-    datasets: [
-      { label: 'No Disease', data: data.diabetic_stroke.no_disease, backgroundColor: '#3B5BDB', borderRadius: 6 },
-      { label: 'Heart Disease', data: data.diabetic_stroke.with_disease, backgroundColor: '#e63946', borderRadius: 6 }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { grid: { display: false }, ticks: { maxRotation: 30, font: { size: 9 } } },
-      y: { grid: { color: '#f1f5f9' }, beginAtZero: true }
-    }
-  }
-});
-
-// 3. Race Pie Chart
-new Chart(document.getElementById('raceChart'), {
-  type: 'pie',
-  data: {
-    labels: data.race.labels,
-    datasets: [{
-      data: data.race.values,
-      backgroundColor: data.race.colors,
-      borderWidth: 2, borderColor: '#fff'
-    }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'right', labels: { font: { size: 11 }, padding: 12 } },
-      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` } }
-    }
-  }
-});
-
-// 4. Smoking/Alcohol Chart
-new Chart(document.getElementById('smokingChart'), {
-  type: 'bar',
-  data: {
-    labels: data.smoking_alcohol.labels,
-    datasets: [{
-      label: 'Patients',
-      data: data.smoking_alcohol.values,
-      backgroundColor: ['#10b981', '#f97316', '#3B5BDB', '#e63946'],
-      borderRadius: 6
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { grid: { color: '#f1f5f9' }, beginAtZero: true },
-      y: { grid: { display: false }, ticks: { font: { size: 10 } } }
-    }
-  }
-});
-
-// 5. Physical Activity Doughnut
-new Chart(document.getElementById('activityChart'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Active-Healthy', 'Active-Disease', 'Inactive-Healthy', 'Inactive-Disease'],
-    datasets: [{
-      data: [3100, 280, 1200, 620],
-      backgroundColor: ['#3B5BDB', '#f97316', '#5c7cfa', '#e63946'],
-      borderWidth: 2, borderColor: '#fff'
-    }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    cutout: '60%'
-  }
-});
-
-// 6. Age/Diabetes Stacked Bar
-new Chart(document.getElementById('ageChart'), {
-  type: 'bar',
-  data: {
-    labels: data.age_diabetes.age_groups,
-    datasets: [
-      { label: 'Diabetic', data: data.age_diabetes.diabetic, backgroundColor: '#3B5BDB', borderRadius: 4, stack: 'age' },
-      { label: 'Non-Diabetic', data: data.age_diabetes.non_diabetic, backgroundColor: '#e2e8f0', borderRadius: 4, stack: 'age' }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { grid: { display: false }, stacked: true },
-      y: { grid: { color: '#f1f5f9' }, stacked: true, beginAtZero: true }
-    }
-  }
-});
-</script>
+<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 {% endblock %}
